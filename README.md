@@ -1,0 +1,2 @@
+# PlaceTool
+位置情報から近隣の施設を取得したりするGraphQL

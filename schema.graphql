@@ -1,6 +1,6 @@
 type Query {
     latLngByAddress(address: String!): LatLng!
-    placesByLatLng(input: PlacesByLatLngInput!): [Place]!
+    placesByLatLng(input: PlacesByLatLngInput!): PlaceResponse!
 }
 
 type LatLng {
@@ -13,6 +13,7 @@ input PlacesByLatLngInput {
     lng: Float!
     type: String
     radius: Int
+    pageToken: String
 }
 
 type Place {
@@ -20,5 +21,11 @@ type Place {
     name: String
     address: String
     placeId: String
+}
+
+type PlaceResponse {
+    places: [Place]
+    nextPageToken: String!
+
 }
 scalar Date
