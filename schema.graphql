@@ -1,0 +1,24 @@
+type Query {
+    latLngByAddress(address: String!): LatLng!
+    placesByLatLng(input: PlacesByLatLngInput!): [Place]!
+}
+
+type LatLng {
+    lat: Float
+    lng: Float
+}
+
+input PlacesByLatLngInput {
+    lat: Float!
+    lng: Float!
+    type: String
+    radius: Int
+}
+
+type Place {
+    latlng: LatLng
+    name: String
+    address: String
+    placeId: String
+}
+scalar Date
