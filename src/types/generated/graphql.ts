@@ -16,10 +16,34 @@ export type Scalars = {
   Date: any;
 };
 
+export type DirectionInput = {
+  destination: LatLngInput;
+  origin: LatLngInput;
+};
+
+export type DirectionResponse = {
+  __typename?: 'DirectionResponse';
+  routes?: Maybe<Array<Maybe<Route>>>;
+};
+
 export type LatLng = {
   __typename?: 'LatLng';
   lat?: Maybe<Scalars['Float']>;
   lng?: Maybe<Scalars['Float']>;
+};
+
+export type LatLngInput = {
+  lat: Scalars['Float'];
+  lng: Scalars['Float'];
+};
+
+export type Leg = {
+  __typename?: 'Leg';
+  distance?: Maybe<Scalars['Float']>;
+  duration?: Maybe<Scalars['Float']>;
+  endAddress?: Maybe<Scalars['String']>;
+  startAddress?: Maybe<Scalars['String']>;
+  steps?: Maybe<Array<Maybe<Step>>>;
 };
 
 export type Place = {
@@ -46,8 +70,14 @@ export type PlacesByLatLngInput = {
 
 export type Query = {
   __typename?: 'Query';
+  direction?: Maybe<DirectionResponse>;
   latLngByAddress: LatLng;
   placesByLatLng: PlaceResponse;
+};
+
+
+export type QueryDirectionArgs = {
+  input?: InputMaybe<DirectionInput>;
 };
 
 
@@ -58,6 +88,27 @@ export type QueryLatLngByAddressArgs = {
 
 export type QueryPlacesByLatLngArgs = {
   input: PlacesByLatLngInput;
+};
+
+export type Route = {
+  __typename?: 'Route';
+  legs?: Maybe<Array<Maybe<Leg>>>;
+  summary?: Maybe<Scalars['String']>;
+};
+
+export type Step = {
+  __typename?: 'Step';
+  distance?: Maybe<Scalars['Float']>;
+  duration?: Maybe<Scalars['Float']>;
+  endLocation?: Maybe<LatLng>;
+  startLocation?: Maybe<LatLng>;
+  travelMode?: Maybe<Scalars['String']>;
+};
+
+export type TextValue = {
+  __typename?: 'TextValue';
+  text?: Maybe<Scalars['String']>;
+  value?: Maybe<Scalars['Float']>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -132,37 +183,65 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = ResolversObject<{
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Date: ResolverTypeWrapper<Scalars['Date']>;
+  DirectionInput: DirectionInput;
+  DirectionResponse: ResolverTypeWrapper<DirectionResponse>;
   Float: ResolverTypeWrapper<Scalars['Float']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   LatLng: ResolverTypeWrapper<LatLng>;
+  LatLngInput: LatLngInput;
+  Leg: ResolverTypeWrapper<Leg>;
   Place: ResolverTypeWrapper<Place>;
   PlaceResponse: ResolverTypeWrapper<PlaceResponse>;
   PlacesByLatLngInput: PlacesByLatLngInput;
   Query: ResolverTypeWrapper<{}>;
+  Route: ResolverTypeWrapper<Route>;
+  Step: ResolverTypeWrapper<Step>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  TextValue: ResolverTypeWrapper<TextValue>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
   Boolean: Scalars['Boolean'];
   Date: Scalars['Date'];
+  DirectionInput: DirectionInput;
+  DirectionResponse: DirectionResponse;
   Float: Scalars['Float'];
   Int: Scalars['Int'];
   LatLng: LatLng;
+  LatLngInput: LatLngInput;
+  Leg: Leg;
   Place: Place;
   PlaceResponse: PlaceResponse;
   PlacesByLatLngInput: PlacesByLatLngInput;
   Query: {};
+  Route: Route;
+  Step: Step;
   String: Scalars['String'];
+  TextValue: TextValue;
 }>;
 
 export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
   name: 'Date';
 }
 
+export type DirectionResponseResolvers<ContextType = Context, ParentType extends ResolversParentTypes['DirectionResponse'] = ResolversParentTypes['DirectionResponse']> = ResolversObject<{
+  routes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Route']>>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type LatLngResolvers<ContextType = Context, ParentType extends ResolversParentTypes['LatLng'] = ResolversParentTypes['LatLng']> = ResolversObject<{
   lat?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   lng?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type LegResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Leg'] = ResolversParentTypes['Leg']> = ResolversObject<{
+  distance?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  duration?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  endAddress?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  startAddress?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  steps?: Resolver<Maybe<Array<Maybe<ResolversTypes['Step']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -181,15 +260,42 @@ export type PlaceResponseResolvers<ContextType = Context, ParentType extends Res
 }>;
 
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
+  direction?: Resolver<Maybe<ResolversTypes['DirectionResponse']>, ParentType, ContextType, RequireFields<QueryDirectionArgs, never>>;
   latLngByAddress?: Resolver<ResolversTypes['LatLng'], ParentType, ContextType, RequireFields<QueryLatLngByAddressArgs, 'address'>>;
   placesByLatLng?: Resolver<ResolversTypes['PlaceResponse'], ParentType, ContextType, RequireFields<QueryPlacesByLatLngArgs, 'input'>>;
 }>;
 
+export type RouteResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Route'] = ResolversParentTypes['Route']> = ResolversObject<{
+  legs?: Resolver<Maybe<Array<Maybe<ResolversTypes['Leg']>>>, ParentType, ContextType>;
+  summary?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type StepResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Step'] = ResolversParentTypes['Step']> = ResolversObject<{
+  distance?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  duration?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  endLocation?: Resolver<Maybe<ResolversTypes['LatLng']>, ParentType, ContextType>;
+  startLocation?: Resolver<Maybe<ResolversTypes['LatLng']>, ParentType, ContextType>;
+  travelMode?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type TextValueResolvers<ContextType = Context, ParentType extends ResolversParentTypes['TextValue'] = ResolversParentTypes['TextValue']> = ResolversObject<{
+  text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  value?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type Resolvers<ContextType = Context> = ResolversObject<{
   Date?: GraphQLScalarType;
+  DirectionResponse?: DirectionResponseResolvers<ContextType>;
   LatLng?: LatLngResolvers<ContextType>;
+  Leg?: LegResolvers<ContextType>;
   Place?: PlaceResolvers<ContextType>;
   PlaceResponse?: PlaceResponseResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  Route?: RouteResolvers<ContextType>;
+  Step?: StepResolvers<ContextType>;
+  TextValue?: TextValueResolvers<ContextType>;
 }>;
 
