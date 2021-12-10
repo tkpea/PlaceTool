@@ -20,9 +20,17 @@ input LatLngInput {
     lat: Float!
     lng: Float!
 }
+
+enum TravelMode {
+    driving,
+    walking,
+    bicycling,
+    transit,
+}
 input DirectionInput {
     origin: LatLngInput!
     destination: LatLngInput!
+    mode: TravelMode
 }
 type Place {
     latlng: LatLng

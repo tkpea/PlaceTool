@@ -18,6 +18,7 @@ export type Scalars = {
 
 export type DirectionInput = {
   destination: LatLngInput;
+  mode?: InputMaybe<TravelMode>;
   origin: LatLngInput;
 };
 
@@ -111,6 +112,13 @@ export type TextValue = {
   value?: Maybe<Scalars['Float']>;
 };
 
+export enum TravelMode {
+  Bicycling = 'bicycling',
+  Driving = 'driving',
+  Transit = 'transit',
+  Walking = 'walking'
+}
+
 export type WithIndex<TObject> = TObject & Record<string, any>;
 export type ResolversObject<TObject> = WithIndex<TObject>;
 
@@ -198,6 +206,7 @@ export type ResolversTypes = ResolversObject<{
   Step: ResolverTypeWrapper<Step>;
   String: ResolverTypeWrapper<Scalars['String']>;
   TextValue: ResolverTypeWrapper<TextValue>;
+  TravelMode: TravelMode;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
