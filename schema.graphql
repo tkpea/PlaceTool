@@ -1,6 +1,7 @@
 type Query {
     latLngByAddress(address: String!): LatLng!
     placesByLatLng(input: PlacesByLatLngInput!): PlaceResponse!
+    direction(input: DirectionInput): DirectionResponse
 }
 
 type LatLng {
@@ -15,7 +16,14 @@ input PlacesByLatLngInput {
     radius: Int
     pageToken: String
 }
-
+input LatLngInput {
+    lat: Float!
+    lng: Float!
+}
+input DirectionInput {
+    origin: LatLngInput!
+    destination: LatLngInput!
+}
 type Place {
     latlng: LatLng
     name: String
@@ -29,3 +37,35 @@ type PlaceResponse {
 
 }
 scalar Date
+
+
+
+type TextValue  {
+    text: String
+    value: Float
+}
+
+type Step {
+    distance: Float
+    duration: Float
+    endLocation: LatLng
+    startLocation: LatLng
+    travelMode: String
+}
+
+type Leg {
+    distance: Float
+    duration: Float
+    startAddress: String
+    endAddress: String
+    steps: [Step]
+}
+
+type Route {
+    summary: String
+    legs: [Leg]
+}
+
+type DirectionResponse {
+    routes: [Route]
+}
