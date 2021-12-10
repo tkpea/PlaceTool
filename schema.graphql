@@ -38,8 +38,6 @@ type PlaceResponse {
 }
 scalar Date
 
-
-
 type TextValue  {
     text: String
     value: Float

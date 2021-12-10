@@ -25,7 +25,7 @@ export const direction: QueryResolvers['direction'] = async (
           key: GOOGLE_API_KEY
       }
   }).catch(e => {
-      console.log(e)
+      console.error(e)
   })
   if(!results)  throw new Error("api error")
 
