@@ -2,6 +2,7 @@ type Query {
     latLngByAddress(address: String!): LatLng!
     placesByLatLng(input: PlacesByLatLngInput!): PlaceResponse!
     direction(input: DirectionInput): DirectionResponse
+    me: User
 }
 
 type Mutation {

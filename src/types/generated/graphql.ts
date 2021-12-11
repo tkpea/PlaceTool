@@ -94,6 +94,7 @@ export type Query = {
   __typename?: 'Query';
   direction?: Maybe<DirectionResponse>;
   latLngByAddress: LatLng;
+  me?: Maybe<User>;
   placesByLatLng: PlaceResponse;
 };
 
@@ -316,6 +317,7 @@ export type PlaceResponseResolvers<ContextType = Context, ParentType extends Res
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   direction?: Resolver<Maybe<ResolversTypes['DirectionResponse']>, ParentType, ContextType, RequireFields<QueryDirectionArgs, never>>;
   latLngByAddress?: Resolver<ResolversTypes['LatLng'], ParentType, ContextType, RequireFields<QueryLatLngByAddressArgs, 'address'>>;
+  me?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   placesByLatLng?: Resolver<ResolversTypes['PlaceResponse'], ParentType, ContextType, RequireFields<QueryPlacesByLatLngArgs, 'input'>>;
 }>;
 
