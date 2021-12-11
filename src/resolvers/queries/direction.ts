@@ -1,7 +1,7 @@
 import { DirectionResponse, Leg, QueryResolvers, Route, Step } from '../../types/generated/graphql'
 import { Client, DirectionsRoute, DirectionsStep, Language, RouteLeg, TravelMode } from '@googlemaps/google-maps-services-js'
 import { GOOGLE_API_KEY } from '../../config/constants'
-const fs = require('fs')
+
 export const direction: QueryResolvers['direction'] = async (
   _,
   args,
