@@ -1,3 +1,16 @@
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Dependency directory
 node_modules
-dist
+bower_components
+
+# Ignore built ts files
+dist/**/*
+
+# Ignore Env
 .env
+
+# Ignore Error Log
+yarn-error.log
