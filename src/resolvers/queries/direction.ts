@@ -9,7 +9,6 @@ export const direction: QueryResolvers['direction'] = async (
   ___
 ) => {
   const client = new Client({});
-  console.log("hello")
   if(!args.input) throw new Error("Inputがありません")
   const results = await client.directions({
       params: {
