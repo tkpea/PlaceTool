@@ -4,9 +4,9 @@ import { GOOGLE_API_KEY } from '../../config/constants'
 export const placesByLatLng: QueryResolvers['placesByLatLng'] = async (
   _,
   args,
-  __,
-  ___
+  context,
 ) => {
+  if (!context.user )throw new Error('Authrization Error.')
   if (!args.input) throw new Error('inputが見つかりません')
   const client = new Client({})
   const places = await client.placesNearby({

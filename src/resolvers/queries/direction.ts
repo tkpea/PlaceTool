@@ -5,9 +5,11 @@ import { GOOGLE_API_KEY } from '../../config/constants'
 export const direction: QueryResolvers['direction'] = async (
   _,
   args,
-  __,
+  context,
   ___
 ) => {
+  if (!context.user )throw new Error('Authrization Error.')
+
   const client = new Client({})
   if (!args.input) throw new Error('Inputがありません')
   const results = await client.directions({

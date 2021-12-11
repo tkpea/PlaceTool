@@ -4,9 +4,9 @@ import { GOOGLE_API_KEY } from '../../config/constants'
 export const latLngByAddress: QueryResolvers['latLngByAddress'] = async (
   _,
   args,
-  __,
-  ___
+  context,
 ) => {
+  if (!context.user )throw new Error('Authrization Error.')
   const client = new Client({})
   const location = await client
     .geocode({

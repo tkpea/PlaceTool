@@ -8,7 +8,7 @@ export const login: MutationResolvers['login'] = async (
   if (args.input.paassword !== ADMIN_PASSWORD || args.input.email !== ADMIN_EMAIL) throw new Error('Unable to Login')
   if (!JWT_SECRET) throw new Error('Server Error')
 
-  const token = jwt.sign(args.input.email, JWT_SECRET, { algorithm: 'HS256', expiresIn: '60m' })
+  const token = jwt.sign(args.input.email, JWT_SECRET, { algorithm: 'HS256' })
   return {
     token: token,
     user: {
