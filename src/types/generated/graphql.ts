@@ -1,5 +1,5 @@
-import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
-import { Context } from '../context';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql'
+import { Context } from '../context'
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -63,7 +63,6 @@ export type Mutation = {
   login: AuthPayload;
 };
 
-
 export type MutationLoginArgs = {
   input: LoginUserInput;
 };
@@ -98,16 +97,13 @@ export type Query = {
   placesByLatLng: PlaceResponse;
 };
 
-
 export type QueryDirectionArgs = {
   input?: InputMaybe<DirectionInput>;
 };
 
-
 export type QueryLatLngByAddressArgs = {
   address: Scalars['String'];
 };
-
 
 export type QueryPlacesByLatLngArgs = {
   input: PlacesByLatLngInput;
@@ -151,7 +147,6 @@ export type WithIndex<TObject> = TObject & Record<string, any>;
 export type ResolversObject<TObject> = WithIndex<TObject>;
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
-
 
 export type ResolverWithResolve<TResult, TParent, TContext, TArgs> = {
   resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
@@ -363,4 +358,3 @@ export type Resolvers<ContextType = Context> = ResolversObject<{
   TextValue?: TextValueResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 }>;
-
