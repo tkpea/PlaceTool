@@ -16,6 +16,12 @@ export type Scalars = {
   Date: any;
 };
 
+export type AuthPayload = {
+  __typename?: 'AuthPayload';
+  token: Scalars['String'];
+  user: User;
+};
+
 export type DirectionInput = {
   destination: LatLngInput;
   mode?: InputMaybe<TravelMode>;
@@ -45,6 +51,21 @@ export type Leg = {
   endAddress?: Maybe<Scalars['String']>;
   startAddress?: Maybe<Scalars['String']>;
   steps?: Maybe<Array<Maybe<Step>>>;
+};
+
+export type LoginUserInput = {
+  email: Scalars['String'];
+  paassword: Scalars['String'];
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  login: AuthPayload;
+};
+
+
+export type MutationLoginArgs = {
+  input: LoginUserInput;
 };
 
 export type Place = {
@@ -119,6 +140,12 @@ export enum TravelMode {
   Walking = 'walking'
 }
 
+export type User = {
+  __typename?: 'User';
+  email: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+};
+
 export type WithIndex<TObject> = TObject & Record<string, any>;
 export type ResolversObject<TObject> = WithIndex<TObject>;
 
@@ -189,6 +216,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
+  AuthPayload: ResolverTypeWrapper<AuthPayload>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Date: ResolverTypeWrapper<Scalars['Date']>;
   DirectionInput: DirectionInput;
@@ -198,6 +226,8 @@ export type ResolversTypes = ResolversObject<{
   LatLng: ResolverTypeWrapper<LatLng>;
   LatLngInput: LatLngInput;
   Leg: ResolverTypeWrapper<Leg>;
+  LoginUserInput: LoginUserInput;
+  Mutation: ResolverTypeWrapper<{}>;
   Place: ResolverTypeWrapper<Place>;
   PlaceResponse: ResolverTypeWrapper<PlaceResponse>;
   PlacesByLatLngInput: PlacesByLatLngInput;
@@ -207,10 +237,12 @@ export type ResolversTypes = ResolversObject<{
   String: ResolverTypeWrapper<Scalars['String']>;
   TextValue: ResolverTypeWrapper<TextValue>;
   TravelMode: TravelMode;
+  User: ResolverTypeWrapper<User>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
+  AuthPayload: AuthPayload;
   Boolean: Scalars['Boolean'];
   Date: Scalars['Date'];
   DirectionInput: DirectionInput;
@@ -220,6 +252,8 @@ export type ResolversParentTypes = ResolversObject<{
   LatLng: LatLng;
   LatLngInput: LatLngInput;
   Leg: Leg;
+  LoginUserInput: LoginUserInput;
+  Mutation: {};
   Place: Place;
   PlaceResponse: PlaceResponse;
   PlacesByLatLngInput: PlacesByLatLngInput;
@@ -228,6 +262,13 @@ export type ResolversParentTypes = ResolversObject<{
   Step: Step;
   String: Scalars['String'];
   TextValue: TextValue;
+  User: User;
+}>;
+
+export type AuthPayloadResolvers<ContextType = Context, ParentType extends ResolversParentTypes['AuthPayload'] = ResolversParentTypes['AuthPayload']> = ResolversObject<{
+  token?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
@@ -252,6 +293,10 @@ export type LegResolvers<ContextType = Context, ParentType extends ResolversPare
   startAddress?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   steps?: Resolver<Maybe<Array<Maybe<ResolversTypes['Step']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+  login?: Resolver<ResolversTypes['AuthPayload'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'input'>>;
 }>;
 
 export type PlaceResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Place'] = ResolversParentTypes['Place']> = ResolversObject<{
@@ -295,16 +340,25 @@ export type TextValueResolvers<ContextType = Context, ParentType extends Resolve
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type UserResolvers<ContextType = Context, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type Resolvers<ContextType = Context> = ResolversObject<{
+  AuthPayload?: AuthPayloadResolvers<ContextType>;
   Date?: GraphQLScalarType;
   DirectionResponse?: DirectionResponseResolvers<ContextType>;
   LatLng?: LatLngResolvers<ContextType>;
   Leg?: LegResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
   Place?: PlaceResolvers<ContextType>;
   PlaceResponse?: PlaceResponseResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Route?: RouteResolvers<ContextType>;
   Step?: StepResolvers<ContextType>;
   TextValue?: TextValueResolvers<ContextType>;
+  User?: UserResolvers<ContextType>;
 }>;
 
