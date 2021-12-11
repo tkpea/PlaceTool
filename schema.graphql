@@ -2,6 +2,26 @@ type Query {
     latLngByAddress(address: String!): LatLng!
     placesByLatLng(input: PlacesByLatLngInput!): PlaceResponse!
     direction(input: DirectionInput): DirectionResponse
+    me: User
+}
+
+type Mutation {
+    login(input: LoginUserInput!): AuthPayload!
+}
+
+type AuthPayload {
+    token: String!
+    user: User!
+}
+
+input LoginUserInput {
+    email: String!
+    paassword: String!
+}
+
+type User {
+    name: String
+    email: String!
 }
 
 type LatLng {
